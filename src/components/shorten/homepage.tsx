@@ -8,10 +8,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { useAuth } from "../../context/authcontext";
+// import { useAuth } from "../../context/authcontext";
 
 const CreateUrl = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [longUrl, setLongUrl] = useState("");
   const [customAlias, setCustomAlias] = useState("");
   const [topic, setTopic] = useState("");
@@ -20,7 +20,7 @@ const CreateUrl = () => {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [analytics, setAnalytics] = useState<any | null>(null);
-  const [isFetchingAnalytics, setIsFetchingAnalytics] = useState(false);
+  const [_, setIsFetchingAnalytics] = useState(false);
   const [recentUrls, setRecentUrls] = useState<any[]>([]);
   const [pagination, setPagination] = useState({
     page: 1,
