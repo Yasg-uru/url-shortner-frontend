@@ -17,8 +17,35 @@ import { Loader2, AlertCircle, BarChart3 } from "lucide-react";
 
 const COLORS = ["#ff7675", "#fdcb6e", "#00cec9", "#6c5ce7", "#e84393"];
 
+// Define TypeScript interfaces
+interface ClicksByDate {
+  date: string;
+  totalClicks: number;
+}
+
+interface OSStats {
+  osName: string;
+  uniqueClicks: number;
+  uniqueUsers: number;
+}
+
+interface DeviceStats {
+  deviceName: string;
+  uniqueClicks: number;
+  uniqueUsers: number;
+}
+
+interface OverallAnalyticsData {
+  totalUrls: number;
+  totalClicks: number;
+  uniqueUsers: number;
+  clicksByDate: ClicksByDate[];
+  osTypeStats: OSStats[];
+  deviceTypeStats: DeviceStats[];
+}
+
 const OverallAnalytics: React.FC = () => {
-  const [analytics, setAnalytics] = useState<any | null>(null);
+  const [analytics, setAnalytics] = useState<OverallAnalyticsData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -111,8 +138,8 @@ const OverallAnalytics: React.FC = () => {
               <h3 className="text-lg font-semibold mb-4 text-white">OS Type Distribution</h3>
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
-                  <Pie data={analytics.osType} dataKey="uniqueClicks" nameKey="osName" outerRadius={100}>
-                    {analytics.osType.map((_: any, index: number) => (
+                  <Pie data={analytics.osTypeStats} dataKey="uniqueClicks" nameKey="osName" outerRadius={100}>
+                    {analytics.osTypeStats.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
@@ -134,7 +161,7 @@ const OverallAnalytics: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {analytics.deviceType.map((device: any, index: number) => (
+                    {analytics.deviceTypeStats.map((device, index) => (
                       <tr key={index} className="border">
                         <td className="p-2 text-center">{device.deviceName}</td>
                         <td className="p-2 text-center">{device.uniqueClicks}</td>

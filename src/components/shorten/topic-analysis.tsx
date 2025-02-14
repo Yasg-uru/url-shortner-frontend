@@ -17,48 +17,43 @@ const TopicAnalytics: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch available topics
-  const fetchTopics = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/api/topics", {
-        withCredentials: true,
-      });
-      setTopics(response.data);
-      if (response.data.length > 0) {
-        setSelectedTopic(response.data[0]); // Default to first topic
-      }
-    } catch (err) {
-      setError("Failed to fetch topics.");
-    }
-  };
-
-  // Fetch analytics for selected topic
-  const fetchAnalytics = async (topic: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/api/analytics/topic/${topic}`,
-        {
-          withCredentials: true,
-        }
-      );
-      setAnalytics(response.data);
-    } catch (err) {
-      setError("Failed to fetch topic analytics.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Fetch topics on mount
   useEffect(() => {
+    const fetchTopics = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/topics", {
+          withCredentials: true,
+        });
+        setTopics(response.data);
+        if (response.data.length > 0) setSelectedTopic(response.data[0]);
+      } catch (err) {
+        setError("Failed to fetch topics.");
+      }
+    };
     fetchTopics();
   }, []);
 
+  // Fetch analytics when topic changes
   useEffect(() => {
-    if (selectedTopic) {
-      fetchAnalytics(selectedTopic);
-    }
+    if (!selectedTopic) return;
+
+    const fetchAnalytics = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/analytics/topic/${selectedTopic}`,
+          { withCredentials: true }
+        );
+        setAnalytics(response.data);
+      } catch (err) {
+        setError("Failed to fetch topic analytics.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnalytics();
   }, [selectedTopic]);
 
   return (
@@ -70,8 +65,25 @@ const TopicAnalytics: React.FC = () => {
             <BarChart className="w-6 h-6 text-blue-400 mr-2" /> Topic Analytics
           </h2>
           <button
-            onClick={() => fetchAnalytics(selectedTopic)}
-            className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md flex items-center"
+            onClick={() => {
+              if (selectedTopic) {
+                setLoading(true);
+                setError(null);
+                axios
+                  .get(
+                    `http://localhost:8000/api/analytics/topic/${selectedTopic}`,
+                    {
+                      withCredentials: true,
+                    }
+                  )
+                  .then((response) => setAnalytics(response.data))
+                  .catch(() => setError("Failed to fetch topic analytics."))
+                  .finally(() => setLoading(false));
+              }
+            }}
+            className={`px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-md flex items-center ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={loading}
           >
             {loading ? (
@@ -84,10 +96,14 @@ const TopicAnalytics: React.FC = () => {
 
         {/* Topic Selector */}
         <div className="mt-4">
-          <label className="block text-gray-300 font-medium">
+          <label
+            htmlFor="topic-select"
+            className="block text-gray-300 font-medium"
+          >
             Select Topic:
           </label>
           <select
+            id="topic-select"
             value={selectedTopic}
             onChange={(e) => setSelectedTopic(e.target.value)}
             className="mt-2 w-full p-2 border border-gray-700 rounded-md bg-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-500"
@@ -119,8 +135,8 @@ const TopicAnalytics: React.FC = () => {
           </div>
         )}
 
-        {/* Data Display */}
-        {analytics && (
+        {/* Analytics Data */}
+        {analytics && !loading && (
           <div className="space-y-6 mt-4">
             {/* Overview Cards */}
             <div className="grid grid-cols-2 gap-6">
@@ -172,7 +188,7 @@ const TopicAnalytics: React.FC = () => {
                       <tr key={index} className="border border-gray-600">
                         <td className="p-2 text-blue-400 underline">
                           <a
-                            href={`http://localhost:8000/${url.shortUrl}`}
+                            href={`http://localhost:8000/api/shorten/${url.shortUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

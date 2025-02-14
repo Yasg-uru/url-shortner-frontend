@@ -15,14 +15,10 @@ function App() {
     <>
       <Navbar />
       <Routes>
+        <Route path="/login" element={<Login />} />
+
         <Route element={<ProtectedRoute />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
-          <Route path="/shorten" element={<CreateUrl />} />
+          <Route path="/" element={<CreateUrl />} />
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/topic" element={<TopicAnalytics />} />
