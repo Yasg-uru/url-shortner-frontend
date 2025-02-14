@@ -5,21 +5,29 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/auth/loginpage";
 import ProtectedRoute from "./helper/protectedRoute";
-import CreateUrl from "./components/shorten/createurl";
+import CreateUrl from "./components/shorten/homepage";
+import Navbar from "./components/navbar";
+import TopicAnalytics from "./components/shorten/topic-analysis";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<ProtectedRoute />}>
-          <Route path="/login" element={<Login/>} />
+    <>
+      <Navbar />
+      <Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/login" element={<Login />} />
         </Route>
-      <Route element={<ProtectedRoute />}>
-          <Route path="/login" element={<Login/>} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/login" element={<Login />} />
         </Route>
-      <Route element={<ProtectedRoute />}>
-          <Route path="/shorten" element={<CreateUrl/>} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/shorten" element={<CreateUrl />} />
         </Route>
-    </Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/topic" element={<TopicAnalytics />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
