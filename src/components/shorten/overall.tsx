@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import {
 
   XAxis,
@@ -13,6 +13,7 @@ import {
   Cell,
 } from "recharts";
 import { Loader2, AlertCircle, BarChart3 } from "lucide-react";
+import axiosInstance from "../../helper/axiosInstance";
 
 const COLORS = ["#ff7675", "#fdcb6e", "#00cec9", "#6c5ce7", "#e84393"];
 
@@ -53,7 +54,7 @@ const OverallAnalytics: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://localhost:8000/api/analytics/overall", {
+      const response = await axiosInstance.get("/api/analytics/overall", {
         withCredentials: true,
       });
       setAnalytics(response.data);

@@ -1,6 +1,7 @@
 import axios from "axios";
  const axiosInstance = axios.create({
-    baseURL:'http://localhost:8000'
+    baseURL:'https://url-shortner-aqh9.onrender.com'
+    // baseURL:'http://localhost:8000'
     
 });
 export default axiosInstance;

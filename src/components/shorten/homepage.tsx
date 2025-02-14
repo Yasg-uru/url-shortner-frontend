@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import axiosInstance from "../../helper/axiosInstance";
 // import { useAuth } from "../../context/authcontext";
 
 const CreateUrl = () => {
@@ -38,7 +39,7 @@ const CreateUrl = () => {
     setIsFetchingRecentUrls(true);
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/recent-urls?page=${page}&limit=${limit}`,
+        `https://url-shortner-aqh9.onrender.com/api/recent-urls?page=${page}&limit=${limit}`,
         {
           withCredentials: true,
         }
@@ -71,8 +72,8 @@ const CreateUrl = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/shorten",
+      const response = await axiosInstance.post(
+        "/api/shorten",
         { longUrl, customAlias, topic },
         { withCredentials: true }
       );
@@ -89,8 +90,8 @@ const CreateUrl = () => {
   const fetchAnalytics = async (alias: string) => {
     setIsFetchingAnalytics(true);
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/analytics/${alias}`,
+      const response = await axiosInstance.get(
+        `/api/analytics/${alias}`,
         { withCredentials: true }
       );
       setAnalytics(response.data);
@@ -246,7 +247,7 @@ const CreateUrl = () => {
                       <tr key={url._id} className="border-t border-gray-600">
                         <td className="px-4 py-2 text-blue-400">
                           <a
-                            href={`http://localhost:8000/api/shorten/${url.shortUrl}`}
+                            href={`https://url-shortner-aqh9.onrender.com/api/shorten/${url.shortUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

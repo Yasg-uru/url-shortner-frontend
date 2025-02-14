@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import {
   BarChart as ReBarChart,
   Bar,
@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Loader2, AlertCircle, BarChart } from "lucide-react";
+import axiosInstance from "../../helper/axiosInstance";
 
 const TopicAnalytics: React.FC = () => {
   const [topics, setTopics] = useState<string[]>([]);
@@ -21,7 +22,7 @@ const TopicAnalytics: React.FC = () => {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/topics", {
+        const response = await axiosInstance.get("/api/topics", {
           withCredentials: true,
         });
         setTopics(response.data);
@@ -41,8 +42,8 @@ const TopicAnalytics: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/analytics/topic/${selectedTopic}`,
+        const response = await axiosInstance.get(
+          `/api/analytics/topic/${selectedTopic}`,
           { withCredentials: true }
         );
         setAnalytics(response.data);
@@ -69,9 +70,9 @@ const TopicAnalytics: React.FC = () => {
               if (selectedTopic) {
                 setLoading(true);
                 setError(null);
-                axios
+                axiosInstance
                   .get(
-                    `http://localhost:8000/api/analytics/topic/${selectedTopic}`,
+                    `/api/analytics/topic/${selectedTopic}`,
                     {
                       withCredentials: true,
                     }
@@ -188,7 +189,7 @@ const TopicAnalytics: React.FC = () => {
                       <tr key={index} className="border border-gray-600">
                         <td className="p-2 text-blue-400 underline">
                           <a
-                            href={`http://localhost:8000/api/shorten/${url.shortUrl}`}
+                            href={`https://url-shortner-aqh9.onrender.com/api/shorten/${url.shortUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
