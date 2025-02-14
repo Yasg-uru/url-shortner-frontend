@@ -20,13 +20,24 @@ const Navbar: React.FC = () => {
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                {/* Authenticated User Menu */}
                 <div className="flex items-center space-x-4">
                   <Link
                     to="/profile"
                     className="text-gray-700 hover:text-blue-600"
                   >
                     Profile
+                  </Link>
+                  <Link
+                    to="/topic"
+                    className="text-gray-700 hover:text-blue-600"
+                  >
+                    Smart Topic Analytics
+                  </Link>
+                  <Link
+                    to="/overall"
+                    className="text-gray-700 hover:text-blue-600"
+                  >
+                    Overall Anlytics
                   </Link>
                   <button
                     onClick={logout}

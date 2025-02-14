@@ -1,7 +1,13 @@
-import { createContext, useState, useEffect, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useContext,
+} from "react";
 import axios from "axios";
 import axiosInstance from "../helper/axiosInstance";
-
+import { useNavigate } from "react-router-dom";
 
 // Define user type
 interface User {
@@ -29,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+const navigate= useNavigate();
 
   useEffect(() => {
     authCheck();
@@ -55,12 +62,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/auth/logout`,
-      {},
-      { withCredentials: true }
-    );
-    setUser(null);
+    setLoading(true);
+    await axiosInstance
+      .post(`http://localhost:8000/auth/logout`, {}, { withCredentials: true })
+      .then(() => {
+        setUser(null);
+        setIsAuthenticated(false);
+        navigate('/login')
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -72,12 +84,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth= ()=>{
-    const context = useContext(AuthContext);
-    if(!context){
-        throw new Error("please wrap the app with the provider");
-    
-    }
-    return context;
-    
-}
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("please wrap the app with the provider");
+  }
+  return context;
+};

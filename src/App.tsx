@@ -8,6 +8,7 @@ import ProtectedRoute from "./helper/protectedRoute";
 import CreateUrl from "./components/shorten/homepage";
 import Navbar from "./components/navbar";
 import TopicAnalytics from "./components/shorten/topic-analysis";
+import OverallAnalytics from "./components/shorten/overall";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/topic" element={<TopicAnalytics />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/overall" element={<OverallAnalytics />} />
         </Route>
       </Routes>
     </>
