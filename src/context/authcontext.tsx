@@ -42,6 +42,7 @@ const navigate= useNavigate();
   }, []);
 
   const login = () => {
+    // window.location.href = `http://localhost:8000/auth/google`;
     window.location.href = `https://url-shortner-aqh9.onrender.com/auth/google`;
   };
   const authCheck = () => {
@@ -52,7 +53,8 @@ const navigate= useNavigate();
         setUser(res.data.user);
         setIsAuthenticated(true);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log('thi is a error in  auth check ',error)
         setUser(null);
         setIsAuthenticated(false);
       })
@@ -64,6 +66,7 @@ const navigate= useNavigate();
   const logout = async () => {
     setLoading(true);
     await axiosInstance
+    // .post(`http://localhost:8000/auth/logout`, {}, { withCredentials: true })
       .post(`https://url-shortner-aqh9.onrender.com/auth/logout`, {}, { withCredentials: true })
       .then(() => {
         setUser(null);
