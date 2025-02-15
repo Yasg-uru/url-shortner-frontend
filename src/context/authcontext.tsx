@@ -66,8 +66,8 @@ const navigate= useNavigate();
   const logout = async () => {
     setLoading(true);
     await axiosInstance
-    // .post(`http://localhost:8000/auth/logout`, {}, { withCredentials: true })
-      .post(`https://url-shortner-aqh9.onrender.com/auth/logout`, {}, { withCredentials: true })
+    .post(`/auth/logout`, {}, { withCredentials: true })
+    // .post(`/auth/logout`, {}, { withCredentials: true })
       .then(() => {
         setUser(null);
         setIsAuthenticated(false);
