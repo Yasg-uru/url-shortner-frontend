@@ -43,7 +43,7 @@ const navigate= useNavigate();
 
   const login = () => {
     // window.location.href = `http://localhost:8000/auth/google`;
-    window.location.href = `https://url-shortner-aqh9.onrender.com/auth/google`;
+    window.location.href = `https://url-shortner-aeg8.onrender.com/auth/google`;
   };
   const authCheck = () => {
     setLoading(true);
