@@ -8,6 +8,7 @@ import {
 
 import axiosInstance from "../helper/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Define user type
 interface User {
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-const navigate= useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     authCheck();
@@ -45,16 +46,17 @@ const navigate= useNavigate();
     // window.location.href = `http://localhost:8000/auth/google`;
     window.location.href = `https://url-shortner-aeg8.onrender.com/auth/google`;
   };
-  const authCheck = () => {
+  const authCheck = async () => {
     setLoading(true);
-    axiosInstance
-      .get("/auth/check", { withCredentials: true })
+
+    
+      await axios.get("https://url-shortner-aeg8.onrender.com/auth/check", { withCredentials: true })
       .then((res) => {
         setUser(res.data.user);
         setIsAuthenticated(true);
       })
       .catch((error) => {
-        console.log('thi is a error in  auth check ',error)
+        console.log("thi is a error in  auth check ", error);
         setUser(null);
         setIsAuthenticated(false);
       })
@@ -66,12 +68,12 @@ const navigate= useNavigate();
   const logout = async () => {
     setLoading(true);
     await axiosInstance
-    .post(`/auth/logout`, {}, { withCredentials: true })
-    // .post(`/auth/logout`, {}, { withCredentials: true })
+      .post(`/auth/logout`, {}, { withCredentials: true })
+      // .post(`/auth/logout`, {}, { withCredentials: true })
       .then(() => {
         setUser(null);
         setIsAuthenticated(false);
-        navigate('/login')
+        navigate("/login");
       })
       .finally(() => {
         setLoading(false);
