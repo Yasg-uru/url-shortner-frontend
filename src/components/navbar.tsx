@@ -34,13 +34,13 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-6">
             {isAuthenticated ? (
               <>
-                <Link
+                {/* <Link
                   to="/profile"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
                 >
                   <User className="h-5 w-5 mr-2" />
                   Profile
-                </Link>
+                </Link> */}
                 <Link
                   to="/topic"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
@@ -103,13 +103,13 @@ const Navbar: React.FC = () => {
           <div className="md:hidden bg-gray-800 rounded-lg mt-2 p-4 space-y-4">
             {isAuthenticated ? (
               <>
-                <Link
+                {/* <Link
                   to="/profile"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
                 >
                   <User className="h-5 w-5 mr-2" />
                   Profile
-                </Link>
+                </Link> */}
                 <Link
                   to="/topic"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
