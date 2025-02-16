@@ -44,7 +44,7 @@ const CreateUrl = () => {
           withCredentials: true,
         }
       );
-      setRecentUrls(response.data.data);
+      setRecentUrls(response.data.data || []);
       setPagination(
         response.data.pagination || {
           page: 1,
@@ -250,7 +250,7 @@ const CreateUrl = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {recentUrls.map((url) => (
+                    { recentUrls && recentUrls.length>0 && recentUrls.map((url) => (
                       <tr key={url._id} className="border-t border-gray-600">
                         <td className="px-4 py-2 text-blue-400">
                           <a
