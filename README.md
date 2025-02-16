@@ -203,8 +203,8 @@ This project is licensed under the **ISC License**. See the [LICENSE](LICENSE) f
 
 👤 **Yash Choudhary**
 
-- GitHub: [Yasg-uru](https://github.com/Yasg-uru)
-- Email: [your-email@example.com](mailto:your-email@example.com)
+- GitHub: [https://github.com/Yasg-uru/url-shortner-frontend](https://github.com/Yasg-uru/url-shortner-frontend)
+- Email: [yashpawar12122004@gmail.com](mailto:yashpawar12122004@gmail.com)
 
 ---
 
