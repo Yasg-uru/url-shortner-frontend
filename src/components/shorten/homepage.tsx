@@ -39,7 +39,7 @@ const CreateUrl = () => {
     setIsFetchingRecentUrls(true);
     try {
       const response = await axios.get(
-        `https://url-shortner-aqh9.onrender.com/api/recent-urls?page=${page}&limit=${limit}`,
+        `https://url-shortner-aeg8.onrender.com/api/recent-urls?page=${page}&limit=${limit}`,
         {
           withCredentials: true,
         }
@@ -247,7 +247,7 @@ const CreateUrl = () => {
                       <tr key={url._id} className="border-t border-gray-600">
                         <td className="px-4 py-2 text-blue-400">
                           <a
-                            href={`https://url-shortner-aqh9.onrender.com/api/shorten/${url.shortUrl}`}
+                            href={`https://url-shortner-aeg8.onrender.com/api/shorten/${url.shortUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

@@ -189,7 +189,7 @@ const TopicAnalytics: React.FC = () => {
                       <tr key={index} className="border border-gray-600">
                         <td className="p-2 text-blue-400 underline">
                           <a
-                            href={`https://url-shortner-aqh9.onrender.com/api/shorten/${url.shortUrl}`}
+                            href={`hhttps://url-shortner-aeg8.onrender.com/api/shorten/${url.shortUrl}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
