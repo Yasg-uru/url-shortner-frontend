@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authcontext";
-import { Menu, X,  LogOut, BarChart2, LayoutDashboard, LogIn } from "lucide-react";
+import { Menu, X, LogOut, BarChart2, LayoutDashboard, LogIn, Home } from "lucide-react";
 
 const Navbar: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -32,15 +32,27 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-6">
+            {/* Home Button */}
+            <Link
+              to="/"
+              className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              <Home className="h-5 w-5 mr-2" />
+              Home
+            </Link>
+
+            {/* API Documentation Link */}
+            <a
+              href="https://url-shortner-aeg8.onrender.com/api-docs/" // Replace with your API docs URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              API Docs
+            </a>
+
             {isAuthenticated ? (
               <>
-                {/* <Link
-                  to="/profile"
-                  className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
-                >
-                  <User className="h-5 w-5 mr-2" />
-                  Profile
-                </Link> */}
                 <Link
                   to="/topic"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
@@ -101,15 +113,27 @@ const Navbar: React.FC = () => {
         {/* Mobile Navigation Links */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-gray-800 rounded-lg mt-2 p-4 space-y-4">
+            {/* Home Button */}
+            <Link
+              to="/"
+              className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              <Home className="h-5 w-5 mr-2" />
+              Home
+            </Link>
+
+            {/* API Documentation Link */}
+            <a
+              href="https://url-shortner-aeg8.onrender.com/api-docs/" // Replace with your API docs URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
+            >
+              API Docs
+            </a>
+
             {isAuthenticated ? (
               <>
-                {/* <Link
-                  to="/profile"
-                  className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
-                >
-                  <User className="h-5 w-5 mr-2" />
-                  Profile
-                </Link> */}
                 <Link
                   to="/topic"
                   className="flex items-center text-gray-300 hover:text-blue-500 transition duration-300"
