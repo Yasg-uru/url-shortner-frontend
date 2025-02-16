@@ -45,7 +45,15 @@ const CreateUrl = () => {
         }
       );
       setRecentUrls(response.data.data);
-      setPagination(response.data.pagination);
+      setPagination(
+        response.data.pagination || {
+          page: 1,
+          limit: 10,
+          total: 0,
+          hasNext: false,
+          hasPrevious: false,
+        }
+      );
     } catch (err: any) {
       setError("Failed to fetch recent URLs.");
     } finally {
@@ -90,10 +98,9 @@ const CreateUrl = () => {
   const fetchAnalytics = async (alias: string) => {
     setIsFetchingAnalytics(true);
     try {
-      const response = await axiosInstance.get(
-        `/api/analytics/${alias}`,
-        { withCredentials: true }
-      );
+      const response = await axiosInstance.get(`/api/analytics/${alias}`, {
+        withCredentials: true,
+      });
       setAnalytics(response.data);
     } catch (err: any) {
       setError("Failed to fetch analytics.");
@@ -115,7 +122,7 @@ const CreateUrl = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 px-4 py-8">
       <div className="bg-gray-800 shadow-2xl rounded-2xl p-6 max-w-4xl w-full border border-gray-700">
-      {error && <p className="text-red-400 mt-4 text-center">{error}</p>}
+        {error && <p className="text-red-400 mt-4 text-center">{error}</p>}
         <h2 className="text-3xl font-bold text-center mb-6 text-white">
           🔗 Create Short URL
         </h2>
@@ -289,10 +296,15 @@ const CreateUrl = () => {
                 >
                   <ChevronLeft className="h-5 w-5 text-white" />
                 </button>
-                <span className="text-gray-300">
-                  Page {pagination.page} of{" "}
-                  {Math.ceil(pagination.total / pagination.limit)}
-                </span>
+                {pagination && (
+                  <span className="text-gray-300">
+                    Page {pagination.page ?? 1} of{" "}
+                    {Math.ceil(
+                      (pagination.total ?? 0) / (pagination.limit ?? 10)
+                    )}
+                  </span>
+                )}
+
                 <button
                   onClick={() => handlePageChange(pagination.page + 1)}
                   disabled={!pagination.hasNext}
@@ -350,8 +362,6 @@ const CreateUrl = () => {
             </ul>
           </div>
         )}
-
-       
       </div>
     </div>
   );
