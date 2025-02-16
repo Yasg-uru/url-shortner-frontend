@@ -109,7 +109,7 @@ const TopicAnalytics: React.FC = () => {
             onChange={(e) => setSelectedTopic(e.target.value)}
             className="mt-2 w-full p-2 border border-gray-700 rounded-md bg-gray-900 text-gray-100 focus:ring-2 focus:ring-blue-500"
           >
-            {topics.map((topic) => (
+            { topics && topics.length>0 && topics.map((topic) => (
               <option
                 key={topic}
                 value={topic}
@@ -185,7 +185,7 @@ const TopicAnalytics: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {analytics.urls.map((url: any, index: number) => (
+                    { analytics && analytics.length>0 && analytics.urls.map((url: any, index: number) => (
                       <tr key={index} className="border border-gray-600">
                         <td className="p-2 text-blue-400 underline">
                           <a

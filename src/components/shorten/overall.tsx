@@ -139,7 +139,7 @@ const OverallAnalytics: React.FC = () => {
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>
                   <Pie data={analytics.osTypeStats} dataKey="uniqueClicks" nameKey="osName" outerRadius={100}>
-                    {analytics.osTypeStats.map((_, index) => (
+                    {analytics && analytics.osTypeStats.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
@@ -161,7 +161,7 @@ const OverallAnalytics: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {analytics.deviceTypeStats.map((device, index) => (
+                    {analytics && analytics.deviceTypeStats.map((device, index) => (
                       <tr key={index} className="border">
                         <td className="p-2 text-center">{device.deviceName}</td>
                         <td className="p-2 text-center">{device.uniqueClicks}</td>
